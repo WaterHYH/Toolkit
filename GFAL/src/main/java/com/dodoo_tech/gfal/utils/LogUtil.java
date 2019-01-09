@@ -134,6 +134,10 @@ public class LogUtil {
         logError(className, method, msg, null);
     }
 
+    public static void logError(String error) {
+        logError(null, null, error, null);
+    }
+
     public static void logError(String className, String method, String msg, Throwable e) {
         logMsg(className, LogType.E, method, msg, e);
     }
@@ -157,6 +161,16 @@ public class LogUtil {
             logInfo(className, msg);
         } catch (Exception e) {
             logError(className, e);
+        }
+    }
+
+    public static void logInfo(Object object) {
+        String msg = null;
+        try {
+            msg = JSON.toJSONString(object);
+            logInfo(null, msg);
+        } catch (Exception e) {
+            logError(e);
         }
     }
 
