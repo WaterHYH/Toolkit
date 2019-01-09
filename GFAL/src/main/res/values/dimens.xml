@@ -1,0 +1,15 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="px_10">10px</dimen>
+    <dimen name="px_180">180px</dimen>
+    <dimen name="px_20">20px</dimen>
+    <dimen name="px_60">60px</dimen>
+    <dimen name="px_62">62px</dimen>
+    <dimen name="px_40">40px</dimen>
+    <dimen name="px_500">500px</dimen>
+    <dimen name="px_26">26px</dimen>
+    <dimen name="px_90">90px</dimen>
+    <dimen name="px_280">280px</dimen>
+    <dimen name="px_300">300px</dimen>
+
+</resources>
