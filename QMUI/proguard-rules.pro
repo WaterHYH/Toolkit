@@ -19,21 +19,3 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
-
--keep class com.dodoo_tech.gfal.entity.** { *; }
-
-#glide
--dontwarn com.bumptech.glide.*
--keep class com.bumptech.glide.** { *; }
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public class * extends com.bumptech.glide.module.AppGlideModule
--keep public enum com.bumptech.glide.load.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
-
--keep class com.dodoo_tech.gfal.** { *; }
--keep class com.dodoo_tech.gfal.R { *; }
--keep class com.dodoo_tech.gfal.BuildConfig { *; }
--keepclasseswithmembers class *.R$* { public static <fields>;}
-

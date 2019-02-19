@@ -2,7 +2,7 @@ package com.dodoo_tech.gfal.ui.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.support.annotation.IdRes;
+import androidx.annotation.IdRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

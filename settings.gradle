@@ -1,1 +1,1 @@
-include ':app', ':GFAL'
+include ':app', ':GFAL', ':QMUI'

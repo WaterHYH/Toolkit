@@ -1,4 +1,4 @@
-package com.dodoo_tech.gfal;
+package dodoo.water.qmui;
 
 import android.content.Context;
 import androidx.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.dodoo_tech.gfal.test", appContext.getPackageName());
+        assertEquals("dodoo.water.qmui.test", appContext.getPackageName());
     }
 }

@@ -2,7 +2,7 @@ package com.dodoo_tech.gfal.utils;
 
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.text.Editable;
 import android.text.Layout;
 import android.text.TextPaint;
