@@ -8,10 +8,13 @@ import android.widget.BaseAdapter;
 
 import com.dodoo_tech.gfal.utils.LogUtil;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * 通用的ListView的adapter
+ * ListView的通用adapter抽象类<br/>
+ * 基本用法：继承{@link CommonAdapter}并实现{@link CommonAdapter#getView(int, ViewHolder, Object)}抽象方法，通过{@link ViewHolder#getView(int)}方法获取item内的各种控件
  * @param <T> item对应的数据结构
  * @author Created by waterHYH on 2019/2/18.
  */
@@ -27,6 +30,52 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
         this.datas = datas;
         this.context = context;
         this.itemLayout = itemLayout;
+    }
+
+    public CommonAdapter(Context context, int itemLayout) {
+        this(context,itemLayout,new ArrayList<T>());
+    }
+
+    public List<T> getDatas() {
+        return datas;
+    }
+
+    public void setDatas(List<T> datas) {
+        this.datas = datas;
+    }
+
+    public boolean addItem(T item){
+        return datas.add(item);
+    }
+
+    public boolean addItem(int position,T item){
+        try{
+            datas.add(position,item);
+            return true;
+        }catch (Exception e){
+            LogUtil.logError(e);
+        }
+        return false;
+    }
+
+    public boolean addItems(Collection<? extends T> items){
+        return datas.addAll(items);
+    }
+
+    public boolean addItems(int position,Collection<? extends T> items){
+        return datas.addAll(position,items);
+    }
+
+    public T removeItem(int position){
+        return datas.remove(position);
+    }
+
+    public boolean removeItem(T item){
+        return datas.remove(item);
+    }
+
+    public void clear(){
+        datas.clear();
     }
 
     @Override
@@ -49,6 +98,11 @@ public abstract class CommonAdapter<T> extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
+        try{
+            return getItem(i).hashCode();
+        }catch (Exception e){
+            LogUtil.logError(e);
+        }
         return i;
     }
 

@@ -5,10 +5,5 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".MainActivity">
-    <dodoo.water.qmui.widget.QMUIAnimationListView
-        android:id="@+id/animation_list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-    </dodoo.water.qmui.widget.QMUIAnimationListView>
 </LinearLayout>

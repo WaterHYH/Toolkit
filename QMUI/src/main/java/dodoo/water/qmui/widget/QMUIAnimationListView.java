@@ -13,6 +13,25 @@
  * either express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/*
+ * <p>
+ * https://github.com/cypressious/AnimationListView/blob/master/AnimationListView/src/de/cypressworks/animationlistview/AnimationListView.java
+ * <p>
+ * 一个痛点：
+ * 在LayoutTransition中有一个CHANGE_DISAPPEAR的概念：指由于添加或移动等操作导致子view消失的场景。
+ * QMUIAnimationListView同样有这样的场景，但是ListView上LayoutTransition不生效，所以我们需要自己模拟实现。
+ * 但是当layout后，消失的view已经被回收了，我们只能对 ListView 当前存在的view做动画，那么如何去做CHANGE_DISAPPEAR动画呢？
+ * 这里采用了一个非常挫的实现方案（暂时没想到其它好的方案）：
+ * 1.在layout前对当前屏幕的view都设置 setHasTransientState(true)。这样做后，view不会被直接被ListView回收到scrap中
+ * 2.将当前屏幕的view都保存在mDetachViewsMap中
+ * 3.在draw之前（这个时候我们已经能确定哪些item会完全离开屏幕了），剔除不会完全离开屏幕的item
+ * 4.开启一个ValueAnimator,每次update时调用invalidate()触发 onDraw() 方法
+ * 5.在 onDraw() 方法中根据animator的已动画时间计算view动画的位置，调用view.draw方法draw出来，因为是之前存在过的view，大小必定是确定的
+ * 6.最后需要调用 setHasTransientState(false)，以便view最终可以被回收
+ * <p>
+ * 这种方法的代价就是：当前屏幕的item不能够被及时回收（最终还是会被回收的）
+ * 所以增加 mOpenChangeDisappearAnimation 变量，如果你并不在意 CHANGE_DISAPPEAR 没有动画的那一点点不协调，那就不用开启它
+ */
 
 package dodoo.water.qmui.widget;
 
@@ -49,29 +68,11 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 使 {@link ListView} 支持添加/删除 Item 的动画，支持自定义动画效果。
- * <p>
- * https://github.com/cypressious/AnimationListView/blob/master/AnimationListView/src/de/cypressworks/animationlistview/AnimationListView.java
- * <p>
- * 一个痛点：
- * 在LayoutTransition中有一个CHANGE_DISAPPEAR的概念：指由于添加或移动等操作导致子view消失的场景。
- * QMUIAnimationListView同样有这样的场景，但是ListView上LayoutTransition不生效，所以我们需要自己模拟实现。
- * 但是当layout后，消失的view已经被回收了，我们只能对 ListView 当前存在的view做动画，那么如何去做CHANGE_DISAPPEAR动画呢？
- * 这里采用了一个非常挫的实现方案（暂时没想到其它好的方案）：
- * 1.在layout前对当前屏幕的view都设置 setHasTransientState(true)。这样做后，view不会被直接被ListView回收到scrap中
- * 2.将当前屏幕的view都保存在mDetachViewsMap中
- * 3.在draw之前（这个时候我们已经能确定哪些item会完全离开屏幕了），剔除不会完全离开屏幕的item
- * 4.开启一个ValueAnimator,每次update时调用invalidate()触发 onDraw() 方法
- * 5.在 onDraw() 方法中根据animator的已动画时间计算view动画的位置，调用view.draw方法draw出来，因为是之前存在过的view，大小必定是确定的
- * 6.最后需要调用 setHasTransientState(false)，以便view最终可以被回收
- * <p>
- * 这种方法的代价就是：当前屏幕的item不能够被及时回收（最终还是会被回收的）
- * 所以增加 mOpenChangeDisappearAnimation 变量，如果你并不在意 CHANGE_DISAPPEAR 没有动画的那一点点不协调，那就不用开启它
- *
- * @author cginechen
- * @date 2017-03-30
+ * 使 {@link ListView} 支持添加/删除 Item 的动画，支持自定义动画效果。<br/>
+ * 基本用法：和一般的listview一样设置adapter，在{@link QMUIAnimationListView#manipulate(Manipulator)}里添加/删除item。<br/>
+ * 注意：绑定的adapter必须覆盖{@link BaseAdapter#hasStableIds()}方法，并且返回值设置为true，否则无动画效果。
+ * @author Created by hui on 2019/2/20
  */
-
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class QMUIAnimationListView extends ListView {
     private static final String TAG = "QMUIAnimationListView";
