@@ -5,13 +5,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.dodoo_tech.gfal.utils.ActivityUtils;
 import com.dodoo_tech.gfal.utils.LogUtil;
+import com.dodoo_tech.gfal.utils.Utils;
 
 public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.init(this);
+        LogUtil.setPackageName(getPackageName());
         LogUtil.setDebugMode(true);
         setContentView(R.layout.activity_main);
 
@@ -26,6 +30,10 @@ public class MainActivity extends Activity {
                 }
             }
         });
+
+        boolean hasActivity = ActivityUtils.isActivityExists("com.lmiot.autotool","com.lmiot.autotool.Activity.MainActivit");
+        LogUtil.logInfo("aaaa "+hasActivity);
+
     }
 
 
