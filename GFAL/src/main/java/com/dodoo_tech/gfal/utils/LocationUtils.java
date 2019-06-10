@@ -84,8 +84,7 @@ public final class LocationUtils {
         mLocationManager = (LocationManager) Utils.getContext().getSystemService(Context.LOCATION_SERVICE);
         mListener = listener;
         if (!isLocationEnabled()) {
-            //ToastUtils.showShortSafe("无法定位，请打开定位服务");
-            ToastUtils.showToast("无法定位，请打开定位服务");
+            ToastUtils.showShortSafe("无法定位，请打开定位服务");
             return false;
         }
         String provider = mLocationManager.getBestProvider(getCriteria(), true);

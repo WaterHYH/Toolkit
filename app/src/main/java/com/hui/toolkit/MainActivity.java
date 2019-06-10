@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.dodoo_tech.gfal.utils.ActivityUtils;
 import com.dodoo_tech.gfal.utils.LogUtil;
+import com.dodoo_tech.gfal.utils.ToastUtils;
 import com.dodoo_tech.gfal.utils.Utils;
 
 public class MainActivity extends Activity {
@@ -34,6 +35,7 @@ public class MainActivity extends Activity {
         boolean hasActivity = ActivityUtils.isActivityExists("com.lmiot.autotool","com.lmiot.autotool.Activity.MainActivit");
         LogUtil.logInfo("aaaa "+hasActivity);
 
+        ToastUtils.showLong("bbbbbbbbbbbbb");
     }
 
 
