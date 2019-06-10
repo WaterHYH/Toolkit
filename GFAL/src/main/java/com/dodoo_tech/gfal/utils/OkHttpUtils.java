@@ -2,6 +2,7 @@ package com.dodoo_tech.gfal.utils;
 
 import com.dodoo_tech.gfal.app.GFALApp;
 import com.dodoo_tech.gfal.thread.AsyncTaskCallBack;
+import com.dodoo_tech.gfal.thread.ExecuterPoolHolder;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -84,7 +85,7 @@ public class OkHttpUtils {
             }
         });
 
-        task.executeOnExecutor(GFALApp.getExecuterPool());
+        task.executeOnExecutor(ExecuterPoolHolder.getExecuterPool());
 
     }
 
@@ -275,7 +276,7 @@ public class OkHttpUtils {
             }
         });
 
-        task.executeOnExecutor(GFALApp.getExecuterPool());
+        task.executeOnExecutor(ExecuterPoolHolder.getExecuterPool());
 
     }
 
@@ -370,7 +371,7 @@ public class OkHttpUtils {
 
                     });
                 }
-            }).executeOnExecutor(GFALApp.getExecuterPool());
+            }).executeOnExecutor(ExecuterPoolHolder.getExecuterPool());
 
         }catch (Exception e)
         {

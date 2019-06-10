@@ -4,11 +4,21 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.hui.toolkit"
-        minSdkVersion 19
+        minSdkVersion 22
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+            }
+        }
+
+        ndk {
+            //限定32位本地库
+            abiFilters "armeabi-v7a"
+        }
     }
     buildTypes {
         release {
@@ -19,11 +29,9 @@ android {
 }
 
 dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-alpha3'
+    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-beta1'
     testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'androidx.test:runner:1.1.2-alpha01'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.2-alpha01'
-    implementation project(':QMUI')
-    implementation project(':GFAL')
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 }

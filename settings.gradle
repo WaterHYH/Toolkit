@@ -1,1 +1,1 @@
-include ':app', ':GFAL', ':QMUI'
+include ':app', ':GFAL', ':QMUI', ':Noise'
