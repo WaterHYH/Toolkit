@@ -3,6 +3,7 @@ package com.dodoo_tech.gfal.db;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -20,11 +21,11 @@ public abstract class BaseProvider extends ContentProvider{
 	@Override
 	public boolean onCreate() {
 		// TODO Auto-generated method stub
-		dbHelper = createDbHelper();
+		dbHelper = createDbHelper(getContext());
         return dbHelper != null;
 	}
 
-	protected abstract SQLiteOpenHelper createDbHelper();
+	protected abstract SQLiteOpenHelper createDbHelper(Context context);
 
 	//查询
 	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder ,String TABLE_NAME,UriMatcher uriMatcher) {
