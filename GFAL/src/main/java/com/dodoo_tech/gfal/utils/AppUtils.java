@@ -152,7 +152,7 @@ public final class AppUtils {
             return true;
         }
         if (result.errorMsg != null) {
-            LogUtils.d("isAppRoot", result.errorMsg);
+            LogUtil.logInfo("isAppRoot", result.errorMsg);
         }
         return false;
     }
