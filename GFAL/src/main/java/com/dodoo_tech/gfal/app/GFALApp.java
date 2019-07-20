@@ -7,6 +7,7 @@ import android.os.Process;
 
 import com.dodoo_tech.gfal.utils.LogUtil;
 import com.dodoo_tech.gfal.utils.SystemUtil;
+import com.dodoo_tech.gfal.utils.Utils;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Executor;
@@ -34,7 +35,8 @@ public class GFALApp extends Application {
         context = this;
         //初始化自定义log
         initAppLog();
-
+        //初始化工具类
+        Utils.init(this);
     }
 
     private void initAppLog() {
