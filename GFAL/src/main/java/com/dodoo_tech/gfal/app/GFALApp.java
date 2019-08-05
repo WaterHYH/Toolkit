@@ -35,7 +35,7 @@ public class GFALApp extends Application {
         context = this;
         //初始化自定义log
         initAppLog();
-
+        //初始化工具类
         Utils.init(this);
     }
 
