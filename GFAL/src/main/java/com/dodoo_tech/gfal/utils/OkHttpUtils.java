@@ -98,7 +98,9 @@ public class OkHttpUtils {
         //追加参数
         for (String key : paramsMap.keySet()) {
             Object object = paramsMap.get(key);
-            builder.add(key, object.toString());
+            if (object != null) {
+                builder.add(key, object.toString());
+            }
         }
         //创建RequestBody
         RequestBody body = builder.build();
@@ -165,13 +167,15 @@ public class OkHttpUtils {
         //追加参数
         for (String key : paramsMap.keySet()) {
             Object object = paramsMap.get(key);
-            if (!(object instanceof File)) {
-                builder.addFormDataPart(key, (String) object);
-                //LogUtil.logInfo(key+":"+(String) object);
-            } else {
-                File file = (File) object;
-                builder.addFormDataPart(key, file.getName(), RequestBody.create(MediaType.parse("application/octet-stream"), file));
-                //LogUtil.logInfo(key+":"+ file.getAbsolutePath());
+            if (object != null) {
+                if (!(object instanceof File)) {
+                    builder.addFormDataPart(key, (String) object);
+                    //LogUtil.logInfo(key+":"+(String) object);
+                } else {
+                    File file = (File) object;
+                    builder.addFormDataPart(key, file.getName(), RequestBody.create(MediaType.parse("application/octet-stream"), file));
+                    //LogUtil.logInfo(key+":"+ file.getAbsolutePath());
+                }
             }
         }
         //创建RequestBody
